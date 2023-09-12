@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MafiaScenarios.GodFather.V1.00", "MafiaScenarios.GodFather.V1.00\MafiaScenarios.GodFather.V1.00.csproj", "{54179D74-A30D-4E29-9B00-57F394DB8315}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{54179D74-A30D-4E29-9B00-57F394DB8315}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54179D74-A30D-4E29-9B00-57F394DB8315}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54179D74-A30D-4E29-9B00-57F394DB8315}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54179D74-A30D-4E29-9B00-57F394DB8315}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F74005F2-87B4-4E9F-8A0F-1FCF73C3E199}
+	EndGlobalSection
+EndGlobal
