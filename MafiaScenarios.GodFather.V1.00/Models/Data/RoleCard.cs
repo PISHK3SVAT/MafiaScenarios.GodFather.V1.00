@@ -1,6 +1,6 @@
 ﻿namespace MafiaScenarios.GodFather.V1._00.Models.Data
 {
-    public class Card
+    public class RoleCard
     {
         public string Title { get; set; } = string.Empty;
         public string Side { get; set; } = string.Empty;

@@ -23,7 +23,7 @@ namespace MafiaScenarios.GodFather.V1._00.Controllers
 
         public IActionResult ShowCards()
         {
-            var cards = _game.GetCards()
+            var cards = _game.GetRoleCards()
                 .DistinctBy(r=>r.Title)
                 .Select(r => new ShowCardVM
                 {
@@ -37,7 +37,7 @@ namespace MafiaScenarios.GodFather.V1._00.Controllers
 
         public IActionResult AssigneCards()
         {
-            _game.AssigneRandomCardToPlayer();
+            _game.AssigneRandomRoleCardToPlayer();
             ViewData["Message"] = "نقش های توضیع شدند";
             return RedirectToAction(nameof(Index));
         }

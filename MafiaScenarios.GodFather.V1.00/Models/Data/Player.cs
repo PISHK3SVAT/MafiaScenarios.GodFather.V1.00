@@ -9,6 +9,6 @@
             Name = name;
         }
 
-        public Card? Card { get; set; }
+        public RoleCard? Card { get; set; }
     }
 }

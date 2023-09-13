@@ -29,11 +29,11 @@ namespace MafiaScenarios.GodFather.V1._00.Services
             return new GameServiceResultDto(true, "ثبت نام بازیکنان با موفقیت انجام شد");
         }
         
-        public List<Card> GetCards()
+        public List<RoleCard> GetRoleCards()
         {
             var rolesXml = XElement.Load(_path);
             var roles = rolesXml.Elements("Role")
-                .Select(r => new Card
+                .Select(r => new RoleCard
                 {
                     Title = r.Element("title")!.Value,
                     Side = r.Attribute("side")!.Value,
@@ -43,19 +43,19 @@ namespace MafiaScenarios.GodFather.V1._00.Services
             return roles;
         }
 
-        public GameServiceResultDto<Card> GetPlayerCard(string playerName)
+        public GameServiceResultDto<RoleCard> GetPlayerCard(string playerName)
         {
             var player = Players.FirstOrDefault(p=>p.Name==playerName);
             if (player == null)
-                return new GameServiceResultDto<Card>(false, "این بازیکن وجود ندارد", new Card());
+                return new GameServiceResultDto<RoleCard>(false, "این بازیکن وجود ندارد", new RoleCard());
             if (player.Card == null)
-                return new GameServiceResultDto<Card>(false, "این بازیکن کارتی ندارد!", new Card());
-            return new GameServiceResultDto<Card>(true, "", player!.Card!);
+                return new GameServiceResultDto<RoleCard>(false, "این بازیکن کارتی ندارد!", new RoleCard());
+            return new GameServiceResultDto<RoleCard>(true, "", player!.Card!);
         }
 
-        public void AssigneRandomCardToPlayer()
+        public void AssigneRandomRoleCardToPlayer()
         {
-            var cards=GetCards();
+            var cards=GetRoleCards();
             var randomIndex = new Random();
             for (int i = 0; i < Players.Count; i++)
             {
