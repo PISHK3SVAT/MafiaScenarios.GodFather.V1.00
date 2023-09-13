@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Data;
+using System.Linq;
 using System.Xml.Linq;
 using MafiaScenarios.GodFather.V1._00.Models.Data;
 
@@ -28,11 +29,11 @@ namespace MafiaScenarios.GodFather.V1._00.Services
             return new GameServiceResultDto(true, "ثبت نام بازیکنان با موفقیت انجام شد");
         }
         
-        public List<Role> GetRoles()
+        public List<Card> GetRoles()
         {
             var rolesXml = XElement.Load(_path);
             var roles = rolesXml.Elements("Role")
-                .Select(r => new Role
+                .Select(r => new Card
                 {
                     Title = r.Element("title")!.Value,
                     Side = r.Attribute("side")!.Value,
