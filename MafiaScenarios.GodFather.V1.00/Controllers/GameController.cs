@@ -16,8 +16,22 @@ namespace MafiaScenarios.GodFather.V1._00.Controllers
 
         public IActionResult Index()
         {
-            var names = _game.PlayerNames;
-            return Ok(names.Aggregate((a,b)=>a+"\n"+b));
+            var m = _game.GetRoles();
+            return View(m);
+        }
+
+        public IActionResult ShowCards()
+        {
+            var cards = _game.GetRoles()
+                .DistinctBy(r=>r.Title)
+                .Select(r => new ShowCardVM
+                {
+                    Title = r.Title,
+                    Describtion = r.Describtion,
+                    PicPath = r.PicPath,
+                    Side = r.Side
+                }).ToList();
+            return View(cards);
         }
 
         public IActionResult GetPlayerNames()

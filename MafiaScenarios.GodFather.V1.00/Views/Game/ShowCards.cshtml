@@ -1,0 +1,22 @@
+﻿@model List<ShowCardVM>
+
+@{
+    ViewData["Title"] = "ShowCards";
+}
+
+<h1 class="text-center">کارت های بازی</h1>
+<div class="row" dir="rtl">
+    @for (int i=0; i<Model.Count();i++)
+    {
+        var card =Model[i];
+        <div class="col-lg-4 col-sm-6">
+            <div id="cart@(i+1)" dir="rtl" class="card mx-auto mb-5" style="width: 18rem;">
+                <img src="@card.PicPath" class="card-img-top" alt="@card.Title">
+                <div class="card-body overflow-auto scrollbar" style="height:250px">
+                    <h5 class="card-title">@card.Title - @card.Side</h5>
+                    <p class="card-text text-justify" >@card.Describtion</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
