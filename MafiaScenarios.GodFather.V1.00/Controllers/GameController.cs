@@ -36,9 +36,9 @@ namespace MafiaScenarios.GodFather.V1._00.Controllers
 
         public IActionResult GetPlayerNames()
         {
-            var vm= _game.PlayerNames.Select(n=>new GetPlayerNamesVM
+            var vm= _game.Players.Select(n=>new GetPlayerNamesVM
             {
-                Name=n
+                Name=n.Name
             }).ToList();
             return View(vm);
         }

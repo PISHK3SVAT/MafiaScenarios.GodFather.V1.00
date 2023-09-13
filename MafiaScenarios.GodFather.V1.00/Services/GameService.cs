@@ -7,14 +7,14 @@ namespace MafiaScenarios.GodFather.V1._00.Services
 {
     public class GameService
     {
-        public List<string> PlayerNames = new();
+        public List<Player> Players = new();
         private readonly string _path;
         public const int PLAYERCOUNT= 11;
         public GameService(string path)
         {
             _path = path;
             for (int i=0;i<PLAYERCOUNT; i++)
-                PlayerNames.Add(string.Empty);
+                Players.Add(new Player(string.Empty));
         }
 
         public GameServiceResultDto SetPlayerNames(List<string> playerNames)
@@ -24,8 +24,8 @@ namespace MafiaScenarios.GodFather.V1._00.Services
             if (playerNames.Count() != PLAYERCOUNT)
                 return new GameServiceResultDto(false, "تعداد بازیکنان باید 11 عدد باشد و همچنین نام تکراری مجاز نیست");
 
-            PlayerNames.Clear();
-            playerNames.ForEach(x => PlayerNames.Add(x));
+            Players.Clear();
+            playerNames.ForEach(x => Players.Add(new Player(x)));
             return new GameServiceResultDto(true, "ثبت نام بازیکنان با موفقیت انجام شد");
         }
         
