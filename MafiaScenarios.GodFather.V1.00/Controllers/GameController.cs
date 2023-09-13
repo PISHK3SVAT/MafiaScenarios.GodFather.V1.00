@@ -34,7 +34,7 @@ namespace MafiaScenarios.GodFather.V1._00.Controllers
             return View(cards);
         }
 
-        public IActionResult GetPlayerNames()
+        public IActionResult InputPlayerNames()
         {
             var vm= _game.Players.Select(n=>new GetPlayerNamesVM
             {
@@ -44,7 +44,7 @@ namespace MafiaScenarios.GodFather.V1._00.Controllers
         }
 
         [HttpPost]
-        public IActionResult GetPlayerNames(List<GetPlayerNamesVM> vm) 
+        public IActionResult InputPlayerNames(List<GetPlayerNamesVM> vm) 
         {
             var names = vm.Select(x => x.Name).ToList();
             var result=_game.SetPlayerNames(names);
