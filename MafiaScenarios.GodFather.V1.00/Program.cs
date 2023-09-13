@@ -1,8 +1,11 @@
+using MafiaScenarios.GodFather.V1._00.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+var rolesPath = Path.Combine(builder.Environment.ContentRootPath, "Roles.xml");
+builder.Services.AddSingleton<GameService>(g=>new GameService(rolesPath));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
