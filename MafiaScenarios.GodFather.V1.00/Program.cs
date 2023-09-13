@@ -4,7 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-var rolesPath = Path.Combine(builder.Environment.ContentRootPath, "Roles.xml");
+var rolesPath = Path.Combine(builder.Environment.ContentRootPath, "RoleCards.xml");
 builder.Services.AddSingleton<GameService>(g=>new GameService(rolesPath));
 var app = builder.Build();
 
