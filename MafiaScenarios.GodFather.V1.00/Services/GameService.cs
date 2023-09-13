@@ -29,7 +29,7 @@ namespace MafiaScenarios.GodFather.V1._00.Services
             return new GameServiceResultDto(true, "ثبت نام بازیکنان با موفقیت انجام شد");
         }
         
-        public List<Card> GetRoles()
+        public List<Card> GetCards()
         {
             var rolesXml = XElement.Load(_path);
             var roles = rolesXml.Elements("Role")
@@ -42,6 +42,30 @@ namespace MafiaScenarios.GodFather.V1._00.Services
                 }).ToList();
             return roles;
         }
+
+        public GameServiceResultDto<Card> GetPlayerCard(string playerName)
+        {
+            var player = Players.FirstOrDefault(p=>p.Name==playerName);
+            if (player == null)
+                return new GameServiceResultDto<Card>(false, "این بازیکن وجود ندارد", new Card());
+            if (player.Card == null)
+                return new GameServiceResultDto<Card>(false, "این بازیکن کارتی ندارد!", new Card());
+            return new GameServiceResultDto<Card>(true, "", player!.Card!);
+        }
+
+        public void AssigneRandomCardToPlayer()
+        {
+            var cards=GetCards();
+            var randomIndex = new Random();
+            for (int i = 0; i < Players.Count; i++)
+            {
+                var player = Players[i];
+                var roleIndex = randomIndex.Next(0, cards.Count);
+                var role = cards[roleIndex];
+                player.Card = role;
+                cards.Remove(role);
+            }
+        }
     }
     public class GameServiceResultDto
     {
@@ -53,5 +77,18 @@ namespace MafiaScenarios.GodFather.V1._00.Services
 
         public bool IsSuccess { get; set; }
         public string Message { get; set; }
+    }
+    public class GameServiceResultDto<TData>
+    {
+        public GameServiceResultDto(bool isSuccess, string message,TData data)
+        {
+            IsSuccess = isSuccess;
+            Message = message;
+            Data = data;
+        }
+
+        public bool IsSuccess { get; set; }
+        public string Message { get; set; }
+        public TData Data { get; set; }
     }
 }

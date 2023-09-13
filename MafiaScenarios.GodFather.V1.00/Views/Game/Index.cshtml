@@ -1,47 +1,99 @@
-﻿@model IEnumerable<Card>
+﻿@model IEnumerable<string>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div>@ViewData["Message"]</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Side)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Describtion)
-            </th>
-            <th>
-                pic
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Side)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Describtion)
-            </td>
-            <td>
-                <img src="@item.PicPath">
-            </td>
-        </tr>
+<div class="row">
+    <div class="col">
+        <table dir="rtl" class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">نام</th>
+                    <th scope="col">نقش</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var i = 1;
+                    foreach (var name in Model)
+                    {
+                        <tr>
+                            <th scope="row">@i</th>
+                            <td>@name</td>
+                            <td><button onclick="GetPlayerCard('@name')" class="btn btn-dark">مشاهده نقش</button></td>
+                        </tr>
+                        i++;
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Modals{
+    <div class="modal" id="exampleModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div dir="rtl" class="card mx-auto mb-5" style="width: 18rem;">
+                        <img src="" class="card-img-top" id="modalCardImg" alt="">
+                        <div class="card-body overflow-auto scrollbar" style="height:250px">
+                            <h5 class="card-title" id="modalCardTitle"></h5>
+                            <p class="card-text text-justify" id="modalCardBody"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
+                </div>
+            </div>
+        </div>
+    </div>
 }
-    </tbody>
-</table>
+
+@section Scripts{
+    <script>
+        function GetPlayerCard(playerName){
+            $.ajax({
+                url: "/Game/PlayerCard",
+                data:{playerName: playerName},
+                method:'GET',
+                success: function (result) {
+                    //console.log(result);
+                    let modalTitle;
+                    let modalCardTitle;
+                    let modalCardBody;
+                    let modalCardImgSrc;
+                    if (result.isSucces){
+                        modalTitle = 'کارت' + " - " + playerName;
+                        modalCardTitle = `${result.data.title} - ${result.data.side}`
+                        modalCardBody=result.data.describtion;
+                        modalCardImgSrc=result.data.picPath;
+                    }
+                    else{
+                        modalTitle='ارور';
+                        modalCardTitle='ارور';
+                        modalCardBody = result.message;
+                        modalCardImgSrc='';
+                    }
+                    document.getElementById('modalTitle').innerHTML=modalTitle;
+                    document.getElementById('modalCardTitle').innerHTML = modalCardTitle;
+                    document.getElementById('modalCardBody').innerHTML = modalCardBody;
+                    $('#modalCardImg').attr('src',modalCardImgSrc);
+                    $("#exampleModal").modal('show');
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        }
+    </script>
+}
